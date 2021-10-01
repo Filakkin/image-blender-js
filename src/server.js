@@ -1,4 +1,6 @@
-const express = require('express');
+import express from 'express';
+import { apiUpload } from './api/upload.js';
+
 const app = express();
 const port = 8080;
 
@@ -35,10 +37,7 @@ app.get('/', (req, res) => {
     res.send('Hello world!');
 });
 
-app.post('/upload', (req, res) => {
-    console.log(req.body)
-    res.send('uploaded');
-});
+app.post('/upload', apiUpload);
 
 app.delete('/image/:id', (req, res) => {
     res.send(`deleted ${req.params.id}`);
