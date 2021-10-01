@@ -4,6 +4,8 @@
   "description": "Домашнее задание лекции Node JS ШРИ",
   "main": "server.js",
   "scripts": {
+    "prestart": "npm i",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,9 +15,15 @@
   "keywords": [
     "homework"
   ],
-  "author": "Kalifkin Stanislav",
+  "author": {
+    "name": "Kalifkin Stanislav",
+    "email": "filakkin@yandex.ru"
+  },
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "~14.18.0"
   }
 }
