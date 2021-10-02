@@ -1,49 +1,20 @@
 import express from 'express';
-import { apiUpload } from './api/upload.js';
+import api from './api/index.js';
+import { PORT } from './config/index.js';
 
 const app = express();
-const port = 8080;
 
-app.get('/list', (req, res) => {
-    res.json(
-        [
-            {
-                id: 'random-id',
-                size: 123412,
-                uploadedAt: 1576767673
-            },
-            {
-                id: 'another-random-id',
-                size: 253265,
-                uploadedAt: 15248125812
-            }
-        ]
-    );
-});
-
-app.get('/image/:id', (req, res) => {
-    res.json(
-        {
-            text: `Started download of image with id ${req.params.id}`
-        }
-    );
-});
-
-app.get('/merge', (req, res) => {
-    res.json(req.query);
-});
+app.get('/list', api.list);
+app.get('/image/:id', api.getImage);
+app.get('/merge', api.merge);
+app.post('/upload', api.upload);
+app.delete('/image/:id', api.deleteImage);
 
 app.get('/', (req, res) => {
     res.send('Hello world!');
 });
 
-app.post('/upload', apiUpload);
-
-app.delete('/image/:id', (req, res) => {
-    res.send(`deleted ${req.params.id}`);
-});
-
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(process.argv);
-    console.log(`Listening for req at http://localhost:${port}`);
+    console.log(`Listening for req at http://localhost:${PORT}`);
 });
