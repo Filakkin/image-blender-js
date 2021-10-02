@@ -20,7 +20,7 @@ class Database extends EventEmitter {
     }
 
     getStorage(name) {
-        if (name in this.data) {
+        if (!name in this.data) {
             throw Error(`Хранилища с наименованием ${name} не найдено`);
         }
 
