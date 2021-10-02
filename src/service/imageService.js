@@ -20,4 +20,8 @@ const download = (id) => {
     const path = imageRepository.find(id);
 }
 
-export default { save, find, remove, download };
+const list = () => {
+    return jpegRepository.listAll();
+}
+
+export default { save, find, remove, download, list };
