@@ -1,5 +1,8 @@
+import imageService from '../service/imageService.js';
+
 const deleteImage = (req, res) => {
-    res.send(`deleted ${req.params.id}`);
+    imageService.remove(req.params.id);
+    res.end();
 };
 
 export { deleteImage };

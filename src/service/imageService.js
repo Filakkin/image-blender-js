@@ -1,3 +1,5 @@
+import fsUtils from '../utils/fs.js';
+
 import imageRepository from "../data/imageRepository.js";
 import jpegRepository from "../data/jpegRepository.js";
 import { Image } from "../model/Image.js";
@@ -17,6 +19,8 @@ const find = (id) => {
 
 const remove = (id) => {
     jpegRepository.remove(id);
+    let path = getImagePath(id);
+    fsUtils.removeFile(path);
     imageRepository.remove(id);
 }
 
