@@ -6,8 +6,9 @@ class Database extends EventEmitter {
     data = {};
 
     initStorage(storage, content) {
-        console.log(`Инициализация хранилища ${storage} из файла`)
-        this.data[storage] = content;
+        Object.keys(content).forEach(key => {
+            this.data[storage][key] = content[key];
+        });
     }
 
     checkStorage(name) {

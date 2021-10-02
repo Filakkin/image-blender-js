@@ -5,6 +5,7 @@ import fsUtils from '../utils/fs.js';
 import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
 
+var initialized = false;
 const db = new Database();
 
 const readDump = async (dumpDir) => {
@@ -27,15 +28,20 @@ const readDump = async (dumpDir) => {
             }
         })
     }
+    initialized = true;
 }
 
 readDump(DUMP_DIR);
+
 db.on(dbEvents.CHANGED, (storage) => {
-    try {
-        const storageFilePath = path.resolve(DUMP_DIR, storage);
-        fsUtils.writeFile(storageFilePath, JSON.stringify(db.getStorage(storage), null, '\t'));
-    } catch (err) {
-        console.log(`Ошибка при сохранении данных хранилища '${storage}' в файл ${storageFilePath}`);
+    if (initialized) {
+        console.log(`CHANGED ${storage}`)
+        try {
+            const storageFilePath = path.resolve(DUMP_DIR, storage);
+            fsUtils.writeFile(storageFilePath, JSON.stringify(db.getStorage(storage), null, '\t'));
+        } catch (err) {
+            console.log(`Ошибка при сохранении данных хранилища '${storage}' в файл ${storageFilePath}`);
+        }
     }
 })
 
