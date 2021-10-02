@@ -7,6 +7,10 @@ const save = (image) => {
     imageRepository.save(image.metadata.id, image.path);
 }
 
+const exists = (id) => {
+    return jpegRepository.find(id) && imageRepository.find(id);
+}
+
 const find = (id) => {
     return new Image(jpegRepository.find(id), imageRepository.find(id));
 }
@@ -16,12 +20,12 @@ const remove = (id) => {
     imageRepository.remove(id);
 }
 
-const download = (id) => {
-    const path = imageRepository.find(id);
+const getImagePath = (id) => {
+    return imageRepository.find(id);
 }
 
 const list = () => {
     return jpegRepository.listAll();
 }
 
-export default { save, find, remove, download, list };
+export default { save, find, exists, remove, getImagePath, list };
