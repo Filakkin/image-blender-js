@@ -9,8 +9,6 @@ var initialized = false;
 const db = new Database();
 
 const readDump = async (dumpDir) => {
-    console.log(`Инициализация storage ${dumpDir}`);
-
     if (existsSync(dumpDir) === false) {
         console.log(`Директория для файлового хранения данных ${dumpDir} не найдена, будет создана автоматически`);
         mkdirSync(dumpDir, { recursive: true });
@@ -35,7 +33,6 @@ readDump(DUMP_DIR);
 
 db.on(dbEvents.CHANGED, (storage) => {
     if (initialized) {
-        console.log(`CHANGED ${storage}`)
         try {
             const storageFilePath = path.resolve(DUMP_DIR, storage);
             fsUtils.writeFile(storageFilePath, JSON.stringify(db.getStorage(storage), null, '\t'));
