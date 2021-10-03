@@ -1,18 +1,14 @@
 import express from 'express';
-import api from './api/index.js';
+
 import { PORT } from './config/index.js';
+import { apiRouter } from './routes/apiRouter.js';
+import { mainRouter } from './routes/mainRouter.js';
+
 
 const app = express();
 
-app.get('/list', api.list);
-app.get('/image/:id', api.getImage);
-app.get('/merge', api.merge);
-app.post('/upload', api.upload);
-app.delete('/image/:id', api.deleteImage);
-
-app.get('/', (req, res) => {
-    res.send('Hello world!');
-});
+app.use(apiRouter);
+app.use(mainRouter);
 
 app.listen(PORT, () => {
     console.log(process.argv);
